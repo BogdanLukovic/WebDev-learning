@@ -14,5 +14,43 @@ for (let i = 0; i < all_buttons.length; i++) {
     all_buttons[i].addEventListener("click", function () {
         // audio[i].play();
         this.style.color = "white";
+
+        var buttonInnerHTML = this.innerHTML;
+
+        makeSound(buttonInnerHTML);
     });
+}
+
+document.addEventListener("keypress", function (event) {
+    makeSound(event.key);
+});
+
+function makeSound(key) {
+    switch (key) {
+        case "w":
+            audio[0].play();
+            break;
+        case "a":
+            audio[1].play();
+            break;
+        case "s":
+            audio[2].play();
+            break;
+        case "d":
+            audio[3].play();
+            break;
+        case "j":
+            audio[4].play();
+            break;
+        case "k":
+            audio[5].play();
+            break;
+        case "l":
+            audio[6].play();
+            break;
+
+        default:
+            console.log("The key " + event + " was pressed.");
+            break;
+    }
 }
