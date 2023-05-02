@@ -39,20 +39,26 @@ function playSound(name) {
 }
 
 function checkAnswer() {
-    for (let i = 0; i < user_click_pattern.length; i++) {
+    for (var i = 0; i < user_click_pattern.length; i++) {
         if (user_click_pattern[i] == game_pattern[i]) {
-            if (user_click_pattern.length == game_pattern.length) {
-                setTimeout(nextSequence, 1000);
-                break;
-            }
         } else {
             gameOver();
         }
     }
+    if (user_click_pattern.length == game_pattern.length && playing) {
+        setTimeout(nextSequence, 1000);
+    }
 }
 
 function gameOver() {
-    alert("GAME OVER");
+    $("h1").text(
+        "You reached level " + level + "\nPress any key to start again."
+    );
+
+    level = 0;
+    user_click_pattern = [];
+    game_pattern = [];
+    playing = false;
 }
 
 $(".btn").on("click", function () {
@@ -63,15 +69,16 @@ $(".btn").on("click", function () {
 
     user_click_pattern.push(clicked_button);
 
-    console.log("level = " + level);
-
-    console.log(user_click_pattern);
-    console.log(game_pattern);
-
-    setTimeout(checkAnswer);
+    checkAnswer();
 });
 
 $("body").on("keypress", function () {
+    // console.log("User = " + user_click_pattern[i]);
+    // console.log("Game = " + game_pattern[i]);
+    // console.log(user_click_pattern[i] + "=" + game_pattern[i]);
+    // console.log("i = " + i);
+    console.log(user_click_pattern);
+    console.log(game_pattern);
     if (playing == false) {
         playing = true;
         nextSequence();
